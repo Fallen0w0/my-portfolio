@@ -45,7 +45,7 @@
 			});
 		} catch (error) {
 			throw new ApiError(
-				"Cannot reach the server. Make sure app.py is running, then open this page at http://127.0.0.1:5000"
+				"Cannot reach the server. Make sure run.py is running, then open this page at http://127.0.0.1:5000"
 			);
 		}
 		if (response.status === 204) return null;

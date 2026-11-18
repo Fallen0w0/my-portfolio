@@ -1,6 +1,6 @@
 """Tests for the ORM layer and the CRUD API.
 
-Run from the project folder with:  python -m unittest -v
+Run from the project folder with:  python -m unittest discover -s tests -v
 Each test uses its own temporary database file, so your real data is untouched.
 """
 
@@ -8,8 +8,8 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from app import create_app
-from models import Project
+from backend.app import create_app
+from backend.models import Project
 
 
 class BaseTest(unittest.TestCase):

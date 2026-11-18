@@ -1,7 +1,7 @@
 """Database configuration.
 
 The app stores its data in a single SQLite file. By default it lives in
-data/portfolio.db next to this file. To use a different file, set the
+data/portfolio.db in the project root. To use a different file, set the
 DATABASE_PATH environment variable before starting the app.
 """
 
@@ -10,7 +10,7 @@ import sqlite3
 from contextlib import contextmanager
 from pathlib import Path
 
-BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR = Path(__file__).resolve().parent.parent
 DEFAULT_DB_PATH = BASE_DIR / "data" / "portfolio.db"
 
 _db_path = Path(os.environ.get("DATABASE_PATH", DEFAULT_DB_PATH))

@@ -22,7 +22,7 @@ the SQL text (this prevents SQL injection).
 
 from datetime import datetime, timezone
 
-from database import connection
+from .database import connection
 
 
 def _utc_now():

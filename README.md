@@ -27,12 +27,12 @@ You need Python 3.10 or newer.
 
    ```sh
    python -m pip install -r requirements.txt
-   python app.py
+   python run.py
    ```
 
 4. Visit <http://127.0.0.1:5000>.
 
-Keep the terminal open while using the site. Press **Ctrl+C** to stop the server. Do not open `templates/index.html` directly; the page needs Flask to load projects and save changes.
+Keep the terminal open while using the site. Press **Ctrl+C** to stop the server. Do not open `frontend/templates/index.html` directly; the page needs Flask to load projects and save changes.
 
 ## Use the Projects section
 
@@ -52,12 +52,12 @@ To use a different database file, set `DATABASE_PATH` before starting the app:
 ```powershell
 # Windows PowerShell
 $env:DATABASE_PATH = "C:\path\to\portfolio.db"
-python app.py
+python run.py
 ```
 
 ```sh
 # macOS / Linux
-DATABASE_PATH=/path/to/portfolio.db python app.py
+DATABASE_PATH=/path/to/portfolio.db python run.py
 ```
 
 To reset the local database, stop the app and delete `data/portfolio.db`. The next run creates a fresh database with the starter projects. The database file is excluded from Git by `.gitignore`.
@@ -66,28 +66,32 @@ To reset the local database, stop the app and delete `data/portfolio.db`. The ne
 
 ```text
 my-portfolio/
-├── app.py                  # Starts Flask and defines the projects API
-├── database.py             # SQLite connection and database path
-├── models.py               # Project fields and input validation
-├── orm.py                  # ORM operations for database records
-├── seed.py                 # Starter projects for a new database
+├── backend/                # Flask app, database, ORM, and project model
+│   ├── __init__.py
+│   ├── app.py
+│   ├── database.py
+│   ├── models.py
+│   ├── orm.py
+│   └── seed.py
+├── frontend/               # Page templates and browser assets
+│   ├── templates/
+│   │   └── index.html
+│   └── static/
+│       ├── css/style.css
+│       ├── images/profile.jpg
+│       └── js/
+│           ├── contact.js
+│           └── projects.js
+├── run.py                  # Starts the application
 ├── requirements.txt        # Python packages needed to run the app
 ├── README.md               # Setup and project instructions
 ├── data/
 │   └── portfolio.db        # Created on first run; excluded from Git
-├── templates/
-│   └── index.html          # Portfolio page
-├── static/
-│   ├── css/style.css
-│   ├── images/profile.jpg
-│   └── js/
-│       ├── contact.js
-│       └── projects.js
 └── tests/
     └── test_crud.py        # ORM, API, and persistence tests
 ```
 
-Keep application code in the root Python modules, page markup in `templates/`, browser assets in `static/`, and tests in `tests/`. The `data/` folder is created automatically when the app first runs.
+The `backend/` folder contains server and database code. The `frontend/` folder contains the page and its CSS, JavaScript, and image assets. Tests stay in `tests/`, while `run.py` and `requirements.txt` remain at the project root for easy setup. The `data/` folder is created automatically on first run.
 
 ## Technologies
 

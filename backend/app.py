@@ -1,13 +1,15 @@
 """Flask application: serves the portfolio page and the JSON API behind it.
 
-Run it with:  python app.py   (then open http://127.0.0.1:5000)
+Run it with:  python run.py   (then open http://127.0.0.1:5000)
 """
+
+from pathlib import Path
 
 from flask import Flask, jsonify, render_template, request
 
-import database
-from models import Project
-from seed import seed_projects
+from . import database
+from .models import Project
+from .seed import seed_projects
 
 
 def init_db():
@@ -17,7 +19,12 @@ def init_db():
 
 
 def create_app(db_path=None):
-    app = Flask(__name__)
+    project_root = Path(__file__).resolve().parent.parent
+    app = Flask(
+        __name__,
+        template_folder=str(project_root / "frontend" / "templates"),
+        static_folder=str(project_root / "frontend" / "static"),
+    )
 
     if db_path is not None:
         database.configure(db_path)
@@ -86,7 +93,3 @@ def create_app(db_path=None):
         return "", 204
 
     return app
-
-
-if __name__ == "__main__":
-    create_app().run()

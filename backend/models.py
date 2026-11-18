@@ -2,7 +2,7 @@
 
 from urllib.parse import urlparse
 
-from orm import DateTimeField, IntegerField, Model, TextField
+from .orm import DateTimeField, IntegerField, Model, TextField
 
 
 class Project(Model):

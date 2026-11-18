@@ -1,6 +1,6 @@
 """Starter records for a new database."""
 
-from models import Project
+from .models import Project
 
 STARTER_PROJECTS = [
     {
