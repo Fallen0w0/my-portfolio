@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Charles Zedrick Del Mundo | Web Developer Portfolio</title>
+	<meta name="description" content="Portfolio of Charles Zedrick Del Mundo, a web developer, with a projects manager backed by a database.">
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+	<!-- Loaded after Bootstrap so our styles can override it -->
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+	<header class="site-nav">
+		<a class="brand" href="#about">
+			<span class="brand-mark" aria-hidden="true"></span>
+			<span class="brand-name">Charles Zedrick Del Mundo</span>
+			<span class="brand-role">/ Web Developer</span>
+		</a>
+
+		<nav aria-label="Main">
+			<a href="#about">About</a>
+			<a href="#projects">Projects</a>
+			<a href="#contact">Contact</a>
+		</nav>
+	</header>
+
+	<main>
+
+		<!-- ABOUT: layout follows the reference (colored panel, profile card, big "Hello") -->
+		<section id="about" class="hero">
+
+			<div class="hero-panel">
+				<article class="profile-card">
+					<img src="{{ url_for('static', filename='images/profile.jpg') }}" id="profile" width="300" height="300" alt="Portrait of Charles Zedrick Del Mundo">
+
+					<h2 class="card-name">Charles Zedrick Del Mundo</h2>
+					<hr class="card-rule">
+					<p class="card-role">Web Developer</p>
+
+					<div class="card-social">
+						<a href="https://www.facebook.com/czedricko.delmundo" target="_blank" rel="noopener" aria-label="Facebook">
+							<i class="fa-brands fa-facebook"></i></a>
+
+						<a href="https://www.instagram.com/fallen_oof/" target="_blank" rel="noopener" aria-label="Instagram">
+							<i class="fa-brands fa-instagram"></i></a>
+
+						<a href="https://www.linkedin.com/in/charles-zedrick-del-mundo-a1a61a41a" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+							<i class="fa-brands fa-linkedin-in"></i></a>
+
+						<a href="mailto:charleszedrickdelmundo22@gmail.com" data-open-contact aria-label="Email">
+							<i class="fa-solid fa-envelope"></i></a>
+					</div>
+				</article>
+			</div>
+
+			<div class="hero-copy">
+				<h1>Hello, I'm Charles.</h1>
+				<p class="hero-tagline">Web developer focused on thoughtful, user-friendly experiences.</p>
+
+				<div class="hero-actions">
+					<a href="#projects" class="btn btn-primary btn-pill">Projects</a>
+					<button type="button" class="btn btn-outline-dark btn-pill" data-open-contact>Let's Work Together</button>
+				</div>
+
+				<p class="hero-text">I build responsive websites and web applications with clean interfaces and thoughtful details designed to make them easy to use.</p>
+			</div>
+
+		</section>
+
+		<!-- PROJECTS: the CRUD app. Every project here is a row in the database. -->
+		<section id="projects" class="projects">
+			<div class="projects-inner">
+
+				<div class="section-head">
+					<div>
+						<h2>Projects</h2>
+						<p class="section-sub">This list is stored in a SQLite database and managed through an ORM. Add, edit or delete a project and it stays saved after you refresh.</p>
+					</div>
+					<button type="button" id="add-project" class="btn btn-primary btn-pill">+ Add project</button>
+				</div>
+
+				<div class="filters" role="group" aria-label="Filter projects by status">
+					<button type="button" class="filter-btn active" data-filter="All" aria-pressed="true">All</button>
+					<button type="button" class="filter-btn" data-filter="Planned" aria-pressed="false">Planned</button>
+					<button type="button" class="filter-btn" data-filter="In progress" aria-pressed="false">In progress</button>
+					<button type="button" class="filter-btn" data-filter="Completed" aria-pressed="false">Completed</button>
+				</div>
+
+				<div id="live-status" class="visually-hidden" role="status" aria-live="polite"></div>
+				<div id="page-alert" class="alert alert-danger" role="alert" hidden></div>
+
+				<p id="loading" class="projects-message">Loading projects…</p>
+				<p id="empty" class="projects-message" hidden>No projects here yet. Click “Add project” to create one.</p>
+
+				<div id="project-grid" class="project-grid"></div>
+
+			</div>
+		</section>
+
+	</main>
+
+	<footer id="contact" class="site-footer">
+		<p class="mb-1">Want to work together? <button type="button" class="footer-contact-link" data-open-contact>Send me a message</button></p>
+		<p class="mb-1"><a href="mailto:charleszedrickdelmundo22@gmail.com">charleszedrickdelmundo22@gmail.com</a></p>
+		<p class="mb-0 small">&copy; 2026 Charles Zedrick Del Mundo</p>
+	</footer>
+
+	<dialog id="contact-dialog" aria-labelledby="contact-dialog-title">
+		<form id="contact-form">
+			<h2 id="contact-dialog-title" class="dialog-title">Send a message</h2>
+			<p class="contact-dialog-note">Your message will be prepared in your email app. Review it there and press Send when you're ready.</p>
+
+			<div class="mb-3">
+				<label for="contact-name" class="form-label">Your name</label>
+				<input type="text" class="form-control" id="contact-name" name="name" maxlength="100" autocomplete="name" placeholder="How should I address you?" required>
+			</div>
+
+			<div class="mb-3">
+				<label for="contact-email" class="form-label">Your email</label>
+				<input type="email" class="form-control" id="contact-email" name="email" maxlength="254" autocomplete="email" placeholder="you@example.com" required>
+			</div>
+
+			<div class="mb-3">
+				<label for="contact-subject" class="form-label">Subject</label>
+				<input type="text" class="form-control" id="contact-subject" name="subject" maxlength="120" placeholder="What would you like to discuss?" required>
+			</div>
+
+			<div class="mb-3">
+				<label for="contact-message" class="form-label">Message</label>
+				<textarea class="form-control" id="contact-message" name="message" rows="5" maxlength="3000" placeholder="Share a few details about your project or question..." required></textarea>
+			</div>
+
+			<div class="dialog-actions">
+				<button type="button" class="btn btn-outline-secondary btn-pill" data-close-contact>Cancel</button>
+				<button type="submit" class="btn btn-primary btn-pill">Continue to email</button>
+			</div>
+		</form>
+	</dialog>
+
+	<!-- Add / edit form -->
+	<dialog id="project-dialog" aria-labelledby="dialog-title">
+		<form id="project-form" novalidate>
+			<h2 id="dialog-title" class="dialog-title">Add project</h2>
+
+			<div id="form-alert" class="alert alert-danger" role="alert" hidden></div>
+
+			<div class="mb-3">
+				<label for="field-title" class="form-label">Title <span class="text-danger" aria-hidden="true">*</span></label>
+				<input type="text" class="form-control" id="field-title" name="title" maxlength="100" required>
+				<div class="invalid-feedback" id="error-title"></div>
+			</div>
+
+			<div class="mb-3">
+				<label for="field-status" class="form-label">Status</label>
+				<select class="form-select" id="field-status" name="status">
+					<option>Planned</option>
+					<option>In progress</option>
+					<option>Completed</option>
+				</select>
+				<div class="invalid-feedback" id="error-status"></div>
+			</div>
+
+			<div class="mb-3">
+				<label for="field-tech" class="form-label">Tech stack</label>
+				<input type="text" class="form-control" id="field-tech" name="tech_stack" maxlength="200" placeholder="Python, Flask, SQLite">
+				<div class="form-text">Separate technologies with commas.</div>
+				<div class="invalid-feedback" id="error-tech_stack"></div>
+			</div>
+
+			<div class="mb-3">
+				<label for="field-url" class="form-label">Project link</label>
+				<input type="url" class="form-control" id="field-url" name="project_url" maxlength="300" placeholder="https://github.com/you/your-project">
+				<div class="invalid-feedback" id="error-project_url"></div>
+			</div>
+
+			<div class="mb-3">
+				<label for="field-description" class="form-label">Description</label>
+				<textarea class="form-control" id="field-description" name="description" rows="3" maxlength="500"></textarea>
+				<div class="invalid-feedback" id="error-description"></div>
+			</div>
+
+			<div class="dialog-actions">
+				<button type="button" id="cancel-dialog" class="btn btn-outline-secondary btn-pill">Cancel</button>
+				<button type="submit" id="save-project" class="btn btn-primary btn-pill">Save project</button>
+			</div>
+		</form>
+	</dialog>
+
+	<script src="https://kit.fontawesome.com/23c074d1b4.js" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+	<script src="{{ url_for('static', filename='js/contact.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/projects.js') }}"></script>
+
+</body>
+</html>

@@ -1,0 +1,598 @@
+/*
+syntax
+
+selector{
+  property: value;
+  property: value;
+}
+  .classselector{}
+  #idselector{}
+
+*/
+
+/* :root holds variables (custom properties) we can reuse with var(--name) */
+:root{
+  --accent: #4f46e5;
+  --accent-dark: #3730a3;
+  --highlight: #2dd4bf;
+  --ink: #111827;
+  --muted: #4b5568;
+  --panel: #14234a;
+  --line: #dce4ef;
+}
+
+html{
+  /* keeps section titles from hiding under the sticky menu bar */
+  scroll-padding-top: 4.5rem;
+}
+
+@media (prefers-reduced-motion: no-preference){
+  html{ scroll-behavior: smooth; }
+}
+
+/* body */
+body{
+  font-family: "Roboto", sans-serif;
+  color: var(--ink);
+
+  /* this file is loaded after Bootstrap, so no !important is needed to win */
+  background-color: #ffffff;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25'%3E%3Cdefs%3E%3ClinearGradient id='a' gradientUnits='userSpaceOnUse' x1='0' x2='0' y1='0' y2='100%25' gradientTransform='rotate(240)'%3E%3Cstop offset='0' stop-color='%23ffffff'/%3E%3Cstop offset='1' stop-color='%23BEF9FF'/%3E%3C/linearGradient%3E%3Cpattern patternUnits='userSpaceOnUse' id='b' width='540' height='450' x='0' y='0' viewBox='0 0 1080 900'%3E%3Cg fill-opacity='0.1'%3E%3Cpolygon fill='%23444' points='90 150 0 300 180 300'/%3E%3Cpolygon points='90 150 180 0 0 0'/%3E%3Cpolygon fill='%23AAA' points='270 150 360 0 180 0'/%3E%3Cpolygon fill='%23DDD' points='450 150 360 300 540 300'/%3E%3Cpolygon fill='%23999' points='450 150 540 0 360 0'/%3E%3Cpolygon points='630 150 540 300 720 300'/%3E%3Cpolygon fill='%23DDD' points='630 150 720 0 540 0'/%3E%3Cpolygon fill='%23444' points='810 150 720 300 900 300'/%3E%3Cpolygon fill='%23FFF' points='810 150 900 0 720 0'/%3E%3Cpolygon fill='%23DDD' points='990 150 900 300 1080 300'/%3E%3Cpolygon fill='%23444' points='990 150 1080 0 900 0'/%3E%3Cpolygon fill='%23DDD' points='90 450 0 600 180 600'/%3E%3Cpolygon points='90 450 180 300 0 300'/%3E%3Cpolygon fill='%23666' points='270 450 180 600 360 600'/%3E%3Cpolygon fill='%23AAA' points='270 450 360 300 180 300'/%3E%3Cpolygon fill='%23DDD' points='450 450 360 600 540 600'/%3E%3Cpolygon fill='%23999' points='450 450 540 300 360 300'/%3E%3Cpolygon fill='%23999' points='630 450 540 600 720 600'/%3E%3Cpolygon fill='%23FFF' points='630 450 720 300 540 300'/%3E%3Cpolygon points='810 450 720 600 900 600'/%3E%3Cpolygon fill='%23DDD' points='810 450 900 300 720 300'/%3E%3Cpolygon fill='%23AAA' points='990 450 900 600 1080 600'/%3E%3Cpolygon fill='%23444' points='990 450 1080 300 900 300'/%3E%3Cpolygon fill='%23222' points='90 750 0 900 180 900'/%3E%3Cpolygon points='270 750 180 900 360 900'/%3E%3Cpolygon fill='%23DDD' points='270 750 360 600 180 600'/%3E%3Cpolygon points='450 750 540 600 360 600'/%3E%3Cpolygon points='630 750 540 900 720 900'/%3E%3Cpolygon fill='%23444' points='630 750 720 600 540 600'/%3E%3Cpolygon fill='%23AAA' points='810 750 720 900 900 900'/%3E%3Cpolygon fill='%23666' points='810 750 900 600 720 600'/%3E%3Cpolygon fill='%23999' points='990 750 900 900 1080 900'/%3E%3Cpolygon fill='%23999' points='180 0 90 150 270 150'/%3E%3Cpolygon fill='%23444' points='360 0 270 150 450 150'/%3E%3Cpolygon fill='%23FFF' points='540 0 450 150 630 150'/%3E%3Cpolygon points='900 0 810 150 990 150'/%3E%3Cpolygon fill='%23222' points='0 300 -90 450 90 450'/%3E%3Cpolygon fill='%23FFF' points='0 300 90 150 -90 150'/%3E%3Cpolygon fill='%23FFF' points='180 300 90 450 270 450'/%3E%3Cpolygon fill='%23666' points='180 300 270 150 90 150'/%3E%3Cpolygon fill='%23222' points='360 300 270 450 450 450'/%3E%3Cpolygon fill='%23FFF' points='360 300 450 150 270 150'/%3E%3Cpolygon fill='%23444' points='540 300 450 450 630 450'/%3E%3Cpolygon fill='%23222' points='540 300 630 150 450 150'/%3E%3Cpolygon fill='%23AAA' points='720 300 630 450 810 450'/%3E%3Cpolygon fill='%23666' points='720 300 810 150 630 150'/%3E%3Cpolygon fill='%23FFF' points='900 300 810 450 990 450'/%3E%3Cpolygon fill='%23999' points='900 300 990 150 810 150'/%3E%3Cpolygon points='0 600 -90 750 90 750'/%3E%3Cpolygon fill='%23666' points='0 600 90 450 -90 450'/%3E%3Cpolygon fill='%23AAA' points='180 600 90 750 270 750'/%3E%3Cpolygon fill='%23444' points='180 600 270 450 90 450'/%3E%3Cpolygon fill='%23444' points='360 600 270 750 450 750'/%3E%3Cpolygon fill='%23999' points='360 600 450 450 270 450'/%3E%3Cpolygon fill='%23666' points='540 600 630 450 450 450'/%3E%3Cpolygon fill='%23222' points='720 600 630 750 810 750'/%3E%3Cpolygon fill='%23FFF' points='900 600 810 750 990 750'/%3E%3Cpolygon fill='%23222' points='900 600 990 450 810 450'/%3E%3Cpolygon fill='%23DDD' points='0 900 90 750 -90 750'/%3E%3Cpolygon fill='%23444' points='180 900 270 750 90 750'/%3E%3Cpolygon fill='%23FFF' points='360 900 450 750 270 750'/%3E%3Cpolygon fill='%23AAA' points='540 900 630 750 450 750'/%3E%3Cpolygon fill='%23FFF' points='720 900 810 750 630 750'/%3E%3Cpolygon fill='%23222' points='900 900 990 750 810 750'/%3E%3Cpolygon fill='%23222' points='1080 300 990 450 1170 450'/%3E%3Cpolygon fill='%23FFF' points='1080 300 1170 150 990 150'/%3E%3Cpolygon points='1080 600 990 750 1170 750'/%3E%3Cpolygon fill='%23666' points='1080 600 1170 450 990 450'/%3E%3Cpolygon fill='%23DDD' points='1080 900 1170 750 990 750'/%3E%3C/g%3E%3C/pattern%3E%3C/defs%3E%3Crect x='0' y='0' fill='url(%23a)' width='100%25' height='100%25'/%3E%3Crect x='0' y='0' fill='url(%23b)' width='100%25' height='100%25'/%3E%3C/svg%3E");
+  background-attachment: fixed;
+  background-size: cover;
+  background-color: #f7f9ff;
+  background-image:
+    radial-gradient(ellipse at 8% 12%, rgba(79, 70, 229, 0.13), transparent 34rem),
+    radial-gradient(ellipse at 91% 18%, rgba(45, 212, 191, 0.14), transparent 30rem),
+    linear-gradient(140deg, #f7f8ff 0%, #f3f8fc 55%, #f5fbf8 100%);
+  background-attachment: scroll;
+  background-size: auto;
+}
+
+/* tag selector: headings use the slab font */
+h1, h2, h3{
+  font-family: "Roboto Slab", serif;
+  color: var(--ink);
+}
+
+a:focus-visible,
+button:focus-visible{
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ---------- menu bar ---------- */
+
+.site-nav{
+  position: sticky;
+  top: 0;
+  z-index: 20;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+
+  padding: 1rem clamp(1rem, 4vw, 3rem);
+  background-color: rgba(255, 255, 255, 0.94);
+  border-bottom: 1px solid var(--line);
+}
+
+.brand{
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+
+  color: var(--ink);
+  text-decoration: none;
+  font-family: "Roboto Slab", serif;
+  font-weight: 600;
+}
+
+/* the little blue square from the reference design */
+.brand-mark{
+  width: 0.7rem;
+  height: 0.7rem;
+  background-color: var(--accent);
+}
+
+.brand-role{
+  color: var(--muted);
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.site-nav nav a{
+  margin-left: 1.5rem;
+  padding-bottom: 0.2rem;
+
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-bottom: 2px solid transparent;
+}
+
+.site-nav nav a:hover{
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+/* ---------- about / hero ---------- */
+
+.hero{
+  /* two columns: colored panel on the left, text on the right */
+  display: grid;
+  grid-template-columns: minmax(0, 40%) minmax(0, 1fr);
+  min-height: calc(100vh - 4rem);
+}
+
+.hero-panel{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  padding: 3rem 0;
+  background:
+    radial-gradient(circle at 18% 22%, rgba(45, 212, 191, 0.48), transparent 17rem),
+    radial-gradient(circle at 83% 86%, rgba(99, 102, 241, 0.42), transparent 23rem),
+    linear-gradient(145deg, var(--panel) 0%, #1e3a8a 57%, #115e59 100%);
+}
+
+.profile-card{
+  position: relative;
+  z-index: 2;
+
+  width: min(340px, 100%);
+
+  /* a negative margin pushes the card past the panel's edge, like the reference */
+  margin-right: -90px;
+  padding: 2.5rem 1.5rem 0;
+
+  background-color: #ffffff;
+  text-align: center;
+  box-shadow: 0 18px 40px rgba(20, 24, 31, 0.15);
+}
+
+#profile{
+  height: 170px;
+  width: 170px;
+  object-fit: cover;
+
+  /* border-radius - to add curvy edges to create a circular shape */
+  border-radius: 50%;
+}
+
+.card-name{
+  margin: 1.25rem 0 0.75rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.card-rule{
+  width: 2.5rem;
+  margin: 0 auto 0.75rem;
+  border: 0;
+  border-top: 2px solid var(--accent);
+  opacity: 1;
+}
+
+.card-role{
+  margin-bottom: 1.75rem;
+  color: var(--muted);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.card-social{
+  display: flex;
+  justify-content: center;
+  gap: 1.75rem;
+
+  /* negative side margins make the bar run edge to edge inside the card */
+  margin: 0 -1.5rem;
+  padding: 1rem;
+  border-top: 1px solid var(--line);
+}
+
+.card-social a{
+  color: var(--ink);
+}
+
+.card-social i{
+  /* to make the icons bigger */
+  font-size: 1.1rem;
+}
+
+.card-social a:hover{
+  color: var(--accent);
+}
+
+.hero-copy{
+  align-self: center;
+
+  /* the left padding leaves room for the card that sticks out of the panel */
+  padding: 3rem clamp(1.5rem, 4vw, 4rem) 3rem 130px;
+}
+
+.hero-copy h1{
+  margin: 0 0 0.75rem;
+  font-size: clamp(2.5rem, 5.2vw, 4.25rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+}
+
+.hero-tagline{
+  max-width: 34rem;
+  margin-bottom: 1.25rem;
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+.hero-actions{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.hero-text{
+  max-width: 34rem;
+  color: var(--muted);
+  font-size: clamp(1rem, 1.2vw, 1.125rem);
+  line-height: 1.75;
+}
+
+.btn-primary{
+  --bs-btn-bg: var(--accent);
+  --bs-btn-border-color: var(--accent);
+  --bs-btn-hover-bg: var(--accent-dark);
+  --bs-btn-hover-border-color: var(--accent-dark);
+  --bs-btn-active-bg: var(--accent-dark);
+  --bs-btn-active-border-color: var(--accent-dark);
+}
+
+.btn-outline-primary{
+  --bs-btn-color: var(--accent);
+  --bs-btn-border-color: var(--accent);
+  --bs-btn-hover-bg: var(--accent);
+  --bs-btn-hover-border-color: var(--accent);
+}
+
+/* pill-shaped buttons (used together with Bootstrap's .btn classes) */
+.btn-pill{
+  padding: 0.55rem 1.5rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.btn-sm.btn-pill{
+  padding: 0.3rem 0.9rem;
+  font-size: 0.72rem;
+}
+
+/* ---------- projects ---------- */
+
+.projects{
+  padding: clamp(3rem, 8vw, 6rem) clamp(1rem, 4vw, 3rem);
+  background-color: #ffffff;
+  border-top: 1px solid var(--line);
+}
+
+.projects-inner{
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.section-head{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.section-head h2{
+  margin: 0 0 0.5rem;
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 800;
+}
+
+.section-sub{
+  max-width: 38rem;
+  margin: 0;
+  color: var(--muted);
+}
+
+.filters{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.filter-btn{
+  padding: 0.3rem 1rem;
+
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  background-color: transparent;
+  color: var(--ink);
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+}
+
+.filter-btn:hover{
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.filter-btn.active{
+  border-color: var(--accent);
+  background-color: var(--accent);
+  color: #ffffff;
+}
+
+.projects-message{
+  padding: 2rem 0;
+  color: var(--muted);
+  text-align: center;
+}
+
+.project-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  gap: 1.25rem;
+}
+
+.project-card{
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+
+  padding: 1.4rem;
+  border: 1px solid var(--line);
+  border-radius: 0.75rem;
+  background-color: #ffffff;
+  box-shadow: 0 6px 18px rgba(20, 24, 31, 0.06);
+}
+
+.project-card-top{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.project-card h3{
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.status-badge{
+  flex-shrink: 0;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.status-planned{
+  background-color: #e9ecef;
+  color: #343a40;
+}
+
+.status-progress{
+  background-color: #fff3cd;
+  color: #664d03;
+}
+
+.status-completed{
+  background-color: #d1e7dd;
+  color: #0a3622;
+}
+
+.project-desc{
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.tech-list{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tech-list li{
+  padding: 0.15rem 0.6rem;
+  border-radius: 0.35rem;
+  background-color: #e7f3ff;
+  color: #084298;
+  font-size: 0.78rem;
+}
+
+.project-card-foot{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+
+  /* margin-top: auto pins the footer to the bottom, so cards line up */
+  margin-top: auto;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--line);
+}
+
+.project-meta{
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.project-meta a{
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.project-actions{
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* ---------- add / edit form ---------- */
+
+dialog{
+  width: min(520px, calc(100vw - 2rem));
+  max-height: calc(100vh - 2rem);
+  padding: 1.75rem;
+  overflow-y: auto;
+
+  border: 0;
+  border-radius: 0.9rem;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3);
+}
+
+#contact-dialog{
+  width: min(560px, calc(100vw - 2rem));
+}
+
+dialog::backdrop{
+  background-color: rgba(20, 24, 31, 0.55);
+}
+
+.dialog-title{
+  margin-bottom: 1.25rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.dialog-actions{
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  margin-top: 1.5rem;
+}
+
+/* ---------- footer ---------- */
+
+.site-footer{
+  padding: 1.5rem 1rem;
+  background: linear-gradient(135deg, #10203b, #17345b);
+  border-top: 3px solid var(--highlight);
+  color: white;
+
+  /* to center elements in footer */
+  text-align: center;
+}
+
+.site-footer a{
+  color: white;
+}
+
+.site-footer a:hover{
+  color: #8fe4d9;
+}
+
+.footer-contact-link{
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.footer-contact-link:hover{
+  color: #8fe4d9;
+}
+
+.contact-dialog-note{
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+#contact-dialog .form-control:focus{
+  border-color: var(--accent);
+  box-shadow: 0 0 0 0.2rem rgba(79, 70, 229, 0.16);
+}
+
+/* ---------- small screens ---------- */
+
+@media (max-width: 991.98px){
+  .hero{
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  /* stack: colored block with the card on top, text underneath */
+  .hero-panel{
+    justify-content: center;
+    padding: 2.5rem 1rem;
+  }
+
+  .profile-card{
+    margin-right: 0;
+  }
+
+  .hero-copy{
+    padding: 2.5rem 1.5rem 3rem;
+    text-align: center;
+  }
+
+  .hero-actions{
+    justify-content: center;
+  }
+
+  .hero-text{
+    margin-inline: auto;
+  }
+}
+
+@media (max-width: 575.98px){
+  html{
+    scroll-padding-top: 6rem;
+  }
+
+  /* menu bar becomes two tidy rows: name, then links */
+  .site-nav{
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 0.75rem 1rem;
+  }
+
+  .brand-role{
+    display: none;
+  }
+
+  .site-nav nav a{
+    margin: 0 0.75rem;
+  }
+
+  .section-head .btn{
+    width: 100%;
+  }
+}
